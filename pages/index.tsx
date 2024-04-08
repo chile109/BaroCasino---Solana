@@ -153,13 +153,11 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
 
         <div className={styles.walletButtons}>
           <WalletMultiButton />
           <WalletDisconnectButton />
+          <button onClick={initBaccarate}>Init Baccarate</button>
         </div>
 
         <div className="game-block">
@@ -172,10 +170,6 @@ const Home: NextPage = () => {
             }}
           />
         </div>
-
-        <p className={styles.description}>
-          <button onClick={initBaccarate}>Init Baccarate</button>
-        </p>
       </main>
     </div>
   );
