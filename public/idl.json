@@ -1,0 +1,67 @@
+{
+    "version": "0.1.0",
+    "name": "barocasino",
+    "instructions": [
+      {
+        "name": "init",
+        "accounts": [
+          {"name": "authority", "isMut": true, "isSigner": true},
+          {"name": "betAccount", "isMut": true, "isSigner": false},
+          {"name": "systemProgram", "isMut": false, "isSigner": false}
+        ],
+        "args": []
+      },
+      {
+        "name": "bet",
+        "accounts": [
+          {"name": "authority", "isMut": true, "isSigner": true},
+          {"name": "betAccount", "isMut": true, "isSigner": false}
+        ],
+        "args": [
+          {"name": "bankerWin", "type": "u64"},
+          {"name": "playerWin", "type": "u64"},
+          {"name": "tie", "type": "u64"},
+          {"name": "bankerPair", "type": "u64"},
+          {"name": "playerPair", "type": "u64"}
+        ]
+      }
+    ],
+    "accounts": [
+      {
+        "name": "BetAccount",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {"name": "owner", "type": "publicKey"},
+            {"name": "balance", "type": "u64"}
+          ]
+        }
+      }
+    ],
+    "events": [
+      {
+        "name": "GameResult",
+        "fields": [
+          {"name": "bettor", "type": "publicKey", "index": false},
+          {"name": "playerWin", "type": "u64", "index": false},
+          {"name": "bankerWin", "type": "u64", "index": false},
+          {"name": "tie", "type": "u64", "index": false},
+          {"name": "bankerPair", "type": "u64", "index": false},
+          {"name": "playerPair", "type": "u64", "index": false},
+          {"name": "payback", "type": "u64", "index": false},
+          {"name": "result", "type": "string", "index": false}
+        ]
+      }
+    ],
+    "errors": [
+      {
+        "code": 6000,
+        "name": "BalanceNotEnough",
+        "msg": "Balance Not Enough to bet"
+      }
+    ],
+    "metadata": {
+        "address": "B5UPJCyN2xqxP5pJmeWr6PgxKBsg4SWh4cw8FbP8fY6X"
+      }
+  }
+  
