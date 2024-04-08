@@ -3,9 +3,15 @@ import {
   WalletMultiButton,
 } from "@solana/wallet-adapter-react-ui";
 import styles from "../styles/Home.module.css";
-import { AnchorProvider, BN, Program, web3 } from "@project-serum/anchor";
+import {
+  AnchorProvider,
+  BN,
+  Program,
+  web3,
+  BorshCoder,
+} from "@project-serum/anchor";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
-import { generateBaccaratResult, type GameResult } from "./utils/baccarat";
+import { generateBaccaratResult, type GameResult } from "../utils/baccarat";
 import Unity, { UnityContext } from "react-unity-webgl";
 import type { NextPage } from "next";
 import React, { useEffect } from "react";
@@ -22,6 +28,9 @@ const Home: NextPage = () => {
   const anchorWallet = useAnchorWallet();
   const connection = new web3.Connection("https://api.devnet.solana.com");
   let gameResult: GameResult;
+
+  getCurrentCredit();
+  
   async function initBaccarate() {
     if (!anchorWallet) {
       return;
@@ -36,6 +45,7 @@ const Home: NextPage = () => {
         [Buffer.from("bet"), provider.wallet.publicKey.toBuffer()],
         program.programId
       );
+
       console.log("bet_account: ", bet_account.toString());
 
       const tx = await program.methods
@@ -47,15 +57,21 @@ const Home: NextPage = () => {
         })
         .rpc();
 
+        getCurrentCredit();
+
       console.log(tx);
     } catch (err) {
       console.log(err);
     }
   }
 
-  async function sendTransaction(bankerWin: BN, playerWin: BN, tie: BN, bankerPair: BN, playerPair: BN){
-
-    console.log("sendTransaction");
+  async function sendTransaction(
+    bankerWin: BN,
+    playerWin: BN,
+    tie: BN,
+    bankerPair: BN,
+    playerPair: BN
+  ) {
     if (!anchorWallet) {
       console.log("No wallet");
       return;
@@ -83,6 +99,7 @@ const Home: NextPage = () => {
         })
         .rpc();
 
+      getCurrentCredit();
       console.log(tx);
     } catch (err) {
       console.log(err);
@@ -122,10 +139,19 @@ const Home: NextPage = () => {
   }, [anchorWallet]);
 
   useEffect(() => {
-    unityContext.on('BetCallback', (player, banker, tie, playerPair, bankerPair) => {
-      console.log("bet:", banker, player, tie, playerPair, bankerPair);
-      sendTransaction(new BN(banker), new BN(player), new BN(tie), new BN(playerPair), new BN(bankerPair));
-    });
+    unityContext.on(
+      "BetCallback",
+      (player, banker, tie, playerPair, bankerPair) => {
+        console.log("bet:", banker, player, tie, playerPair, bankerPair);
+        sendTransaction(
+          new BN(banker),
+          new BN(player),
+          new BN(tie),
+          new BN(playerPair),
+          new BN(bankerPair)
+        );
+      }
+    );
     // unityContext.on('RequestPlayerShowCard', () => {
     //   sendPlayerShowdown(gameResult);
     // });
@@ -134,26 +160,44 @@ const Home: NextPage = () => {
     // });
   }, [anchorWallet]);
 
-  function sendBankerShowdown(gameResult: GameResult){
+  function sendBankerShowdown(gameResult: GameResult) {
     unityContext.send(
-      'BrowserBridge',
-      'GetBankerShowCard',
+      "BrowserBridge",
+      "GetBankerShowCard",
       `{"Items": ${JSON.stringify(gameResult.bankerCards)}}`
     );
-  };
+  }
 
-  function sendPlayerShowdown(gameResult: GameResult){
+  function sendPlayerShowdown(gameResult: GameResult) {
     unityContext.send(
-      'BrowserBridge',
-      'GetPlayerShowCard',
+      "BrowserBridge",
+      "GetPlayerShowCard",
       `{"Items": ${JSON.stringify(gameResult.playerCards)}}`
+    );
+  }
+
+  async function getCurrentCredit() {
+    if (!anchorWallet) return;
+    const connection = new web3.Connection("https://api.devnet.solana.com");
+    const provider = new AnchorProvider(connection, anchorWallet, {
+      preflightCommitment: "processed",
+    });
+    const program = new Program(idl, idl.metadata.address, provider);
+    const [bet_account] = await web3.PublicKey.findProgramAddress(
+      [Buffer.from("bet"), provider.wallet.publicKey.toBuffer()],
+      program.programId
+    );
+    const data = await program.account.betAccount.fetch(bet_account); 
+    unityContext.send(
+      "BrowserBridge",
+      "GetCredit",
+      data.balance.toString()
     );
   }
 
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-
         <div className={styles.walletButtons}>
           <WalletMultiButton />
           <WalletDisconnectButton />
