@@ -51,12 +51,15 @@ git clone https://github.com/chile109/BaroCasino---Solana.git
 
 Once you have cloned the repository, you can go react-unity folder and install the project's dependencies:
 ```
+npm i
+or
 yarn install
 ```
 
 To start the React web application:
 ```
-yarn start
+npm run dev
+yarn dev
 ```
 
 License:
