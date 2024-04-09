@@ -28,8 +28,6 @@ const Home: NextPage = () => {
   const anchorWallet = useAnchorWallet();
   const connection = new web3.Connection("https://api.devnet.solana.com");
   let gameResult: GameResult;
-
-  getCurrentCredit();
   
   async function initBaccarate() {
     if (!anchorWallet) {
@@ -99,7 +97,6 @@ const Home: NextPage = () => {
         })
         .rpc();
 
-      getCurrentCredit();
       console.log(tx);
     } catch (err) {
       console.log(err);
@@ -130,6 +127,7 @@ const Home: NextPage = () => {
 
       sendPlayerShowdown(gameResult);
       // sendBankerShowdown(gameResult);
+      getCurrentCredit();
       console.log("GameResult event:", event);
     });
 
