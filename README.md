@@ -1,42 +1,63 @@
-# `@solana/wallet-adapter-nextjs-starter`
+![Header](https://i.imgur.com/jfca9pM.jpg)
+BaroCasino is a revolutionary tournament DApp that leverages the power of `Host to Earn` to create a decentralized and accessible gaming experience. With BaroCasino, anyone can become a tournament host and participate in exciting competitions with real-world rewards.
 
-<!-- @TODO -->
+For more info please read [Deck](https://www.canva.com/design/DAGAJVy4sMk/dugWolPYsTusxAELCTXojg/view?utm_content=DAGAJVy4sMk&utm_campaign=designshare&utm_medium=link&utm_source=editor)
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Features:
 
-## Getting Started
+- Decentralized tournament hosting
+- NFTs as tournament tickets
+- Built on the Solana
 
-First, run the development server:
+## Technologies:
+- Anchor
+- Next.js
+- Unity
 
-```bash
-npm run dev
-# or
-yarn dev
+## Deployed Contracts:
+Baccarate Game
+[Repository Link](https://github.com/Aronyu127/barocasino)
+
+
+## Structure:
+
+![Project Structure](https://github.com/chile109/Barocasino/blob/main/assets/project_structure.png)
+
+BaroCasino offers a unique decentralized platform for hosting and participating in gaming tournaments. The platform's architecture is designed to accommodate two main roles: **Tournament Creators** and **Tournament Players**, facilitating a seamless flow from the creation of a tournament to the distribution of rewards.
+
+## Roles
+### Tournament Creators:
+Tournament Creators are the backbone of the BaroCasino ecosystem. They initiate tournaments by creating candy machine NFTs, which serve as membership tickets for players to buy and participate in the tournaments. The process for Tournament Creators involves:
+- **Creating NFTs**: These NFTs act as access tokens for the tournaments. Creators decide the terms, rewards, and structure of the tournaments.
+- **Hosting Tournaments**: Once the NFTs are minted, creators can set up tournaments on the BaroCasino platform, inviting players to join and compete.
+![Tournament Creation flow](https://github.com/chile109/Barocasino/raw/main/assets/tournament_creation_flow.png)
+
+### Tournament Players:
+Players engage with the platform by participating in these tournaments. Their journey within the BaroCasino ecosystem involves several steps:
+- **Purchasing NFTs**: Players buy NFTs from the marketplace, granting them membership and the ability to join tournaments.
+- **Participating in Tournaments**: Using their NFTs, players enter tournaments, compete, and aim for the top positions to win rewards.
+- **Claiming Rewards and NFTs**: At the end of a tournament, players can claim their rewards along with their staked NFTs, which can be reused for future tournaments or traded.
+![User Flow](https://github.com/chile109/Barocasino/raw/main/assets/user_flow.png)
+
+## Getting Started:
+
+To get started with BaroCasino, you will need to have the following installed:
+Node.js
+Yarn
+Once you have installed the required dependencies, you can clone the BaroCasino repository from GitHub:
+```
+git clone https://github.com/chile109/BaroCasino---Solana.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Once you have cloned the repository, you can go react-unity folder and install the project's dependencies:
+```
+yarn install
+```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+To start the React web application:
+```
+yarn start
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-## Anchor
-
-[Repository Link](https://github.com/Aronyu127/barocasino)
+License:
+BaroCasino is licensed under the MIT License.
