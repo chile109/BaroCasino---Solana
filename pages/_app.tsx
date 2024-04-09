@@ -32,6 +32,7 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
             new SolanaMobileWalletAdapter({
                 appIdentity: { name: 'Solana Next.js Starter App' },
                 authorizationResultCache: createDefaultAuthorizationResultCache(),
+                cluster: WalletAdapterNetwork.Devnet,
             }),
             new PhantomWalletAdapter(),
             new GlowWalletAdapter(),
